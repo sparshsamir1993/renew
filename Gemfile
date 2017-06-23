@@ -1,11 +1,5 @@
 source 'https://rubygems.org'
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
-end
-
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.2.8'
 # Use sqlite3 as the database for Active Record
@@ -23,6 +17,8 @@ gem 'coffee-rails', '~> 4.2'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'active_model_serializers', '0.10.0.rc4'
+gem 'devise'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -34,10 +30,18 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+gem "therubyracer"
+gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem "twitter-bootstrap-rails"
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
+    gem 'byebug', platform: :mri
+    gem "better_errors"
+    gem 'rspec-rails', '3.1.0'
+    gem 'factory_girl_rails'
+    gem 'pry-rails'
+    gem 'pry-stack_explorer'
+
 end
 
 group :development do
