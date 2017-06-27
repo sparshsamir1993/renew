@@ -1,13 +1,20 @@
-class Admin::BrandController < ApplicationController
+class Admin::BrandsController < ApplicationController
     def index
         @brands = Brand.all
     end
 
     def show
+      @brand = Brand.find(params[:id])
+      @models = Brand.find(params[:id]).models.all
+
     end
 
     def new
         @brand = Brand.new
+    end
+
+    def edit
+      @brand = Brand.find(params[:id])
     end
 
     def create
@@ -15,7 +22,7 @@ class Admin::BrandController < ApplicationController
 
       respond_to do |format|
         if @brand.save
-          format.html { redirect_to admin_brand_index_path, notice: 'Brand was successfully created.' }
+          format.html { redirect_to admin_brands_path, notice: 'Brand was successfully created.' }
           format.json { render :show, status: :created, location: @brand }
         else
           format.html { render :new }
@@ -27,6 +34,7 @@ class Admin::BrandController < ApplicationController
     # PATCH/PUT /brands/1
     # PATCH/PUT /brands/1.json
     def update
+      @brand = Brand.find(params[:id])
       respond_to do |format|
         if @brand.update(brand_params)
           format.html { redirect_to admin_brand_path(@brand), notice: 'Brand was successfully updated.' }
@@ -44,7 +52,7 @@ class Admin::BrandController < ApplicationController
       @brand = Brand.find(params[:id])
       @brand.destroy
       respond_to do |format|
-        format.html { redirect_to admin_brand_index_path, notice: 'Brand was successfully destroyed.' }
+        format.html { redirect_to admin_brands_path, notice: 'Brand was successfully destroyed.' }
         format.json { head :no_content }
       end
     end

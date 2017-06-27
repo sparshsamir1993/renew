@@ -2,8 +2,8 @@
 
 <p>
   <strong>Name:</strong>
-  <%= @brand.name %>
+  <%= @model.name %>
 </p>
 
-<%= link_to 'Edit', edit_brand_path(@brand) %> |
+<%= link_to 'Edit', edit_admin_model_path(id:@model, brand_id:params[:brand_id]) %> |
 <%= link_to 'Back', admin_brands_path %>
