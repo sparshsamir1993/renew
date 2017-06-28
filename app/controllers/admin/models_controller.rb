@@ -5,6 +5,7 @@ class Admin::ModelsController < ApplicationController
 
   def show
     @model = Model.find(params[:id])
+    @services = @model.services.all
   end
 
   def edit
