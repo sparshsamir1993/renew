@@ -1,2 +1,6 @@
-<h1>Admin::Services#edit</h1>
-<p>Find me in app/views/admin/services/edit.html.erb</p>
+<h1>Editing Service</h1>
+
+<%= render 'form'%>
+
+<%= link_to 'Show', admin_service_path(id: @service, brand_id: @brand) %> |
+<%= link_to 'Back', admin_model_path(id:@model) %>

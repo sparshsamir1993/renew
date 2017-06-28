@@ -11,7 +11,7 @@ class Admin::ServicesController < ApplicationController
 
   def edit
     @model = Model.find(params[:model_id])
-    @service = @model.services.find(params[:id])
+    @service = Service.find(params[:id])
   end
 
   def new
@@ -21,7 +21,7 @@ class Admin::ServicesController < ApplicationController
   end
 
   def update
-    @model = Model.find(params[:model_id])
+    @model = Model.find(params[:service][:model_id])
     @service = @model.services.find(params[:id])
     respond_to do |format|
       if @service.update(service_params)
