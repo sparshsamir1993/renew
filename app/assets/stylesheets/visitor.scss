@@ -4121,3 +4121,14 @@ div#brandsList {
 input#service_price{
   color: black;
 }
+
+div#servicesListDiv {
+    height: 100%;
+    background: BLACK;
+    width: 20%;
+    float: right;
+    position: absolute;
+    top: 15%;
+    left: 80%;
+    z-index: 101;
+}

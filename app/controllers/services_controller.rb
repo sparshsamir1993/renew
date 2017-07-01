@@ -4,7 +4,8 @@ class ServicesController < ApplicationController
   # GET /services
   # GET /services.json
   def index
-    @services = Service.all
+    @model = Model.find(params[:model_id])
+    @services = @model.services.all
   end
 
   # GET /services/1
@@ -69,6 +70,6 @@ class ServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
-      params.require(:service).permit(:name, :price)
+      params.require(:service).permit(:name, :price, :model_id)
     end
 end

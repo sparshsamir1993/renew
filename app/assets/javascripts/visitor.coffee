@@ -240,5 +240,29 @@ $(document).on "click", "#brandsList li.listView", ->
 
 
 $(document).on "click", "#modelsList li.listView", ->
-  $('#modelsList').addClass('hidden');
+  $('#modelsList').addClass('hidden')
   $("input#modelField").val(this.innerHTML)
+  $("#modelField")["0"].name = this.innerHTML
+  $("#servicesList")["0"].value = this.value
+
+$(document).on 'click', "#servicesList", ->
+  $.ajax "/services",
+    type :"GET"
+    data: {
+      model_id: this.value
+    }
+    dataType : 'json'
+    success:(data, jqxhr, textStatus) ->
+      console.log(data)
+      if($("#servicesListDiv ul").children().length <1)
+        data.forEach (x) ->
+          console.log(x.name)
+          $("#servBody").append("
+            <tr>
+              <td>" + x.name + "</td>
+              <td>" + x.price + "</td>
+            </tr>
+          ")
+          $("#servicesListDiv").addClass('animated bounceInRight')
+          $("#servicesListDiv").removeClass('hidden')
+      else
