@@ -240,9 +240,13 @@ $(document).on "click", "#brandsList li.listView", ->
 
 
 $(document).on "click", "#modelsList li.listView", ->
+  if(!$("#modelField").val() == "")
+  else
+
   $('#modelsList').addClass('hidden')
   $("input#modelField").val(this.innerHTML)
   $("#modelField")["0"].name = this.innerHTML
+  $("#modelField")["0"].name = this.value
   $("#servicesList")["0"].value = this.value
 
 $(document).on 'click', "#servicesList", ->
@@ -254,7 +258,17 @@ $(document).on 'click', "#servicesList", ->
     dataType : 'json'
     success:(data, jqxhr, textStatus) ->
       console.log(data)
-      if($("#servicesListDiv ul").children().length <1)
+      if($("#servicesListDiv").hasClass('fadeOutRight'))
+        $("#servicesListDiv").removeClass('fadeOutRight')
+        $("#servicesListDiv").addClass('bounceInRight')
+        $("#servicesListDiv").removeClass('hidden')
+      else
+        $("#servicesListDiv").addClass('animated bounceInRight')
+        $("#servicesListDiv").removeClass('hidden')
+
+      if($("#servicesListDiv table tbody").children().length > 0)
+        $("#servBody").html("")
+      if($("#servicesListDiv table tbody").children().length <1)
         data.forEach (x) ->
           console.log(x.name)
           $("#servBody").append("
@@ -263,6 +277,7 @@ $(document).on 'click', "#servicesList", ->
               <td>" + x.price + "</td>
             </tr>
           ")
-          $("#servicesListDiv").addClass('animated bounceInRight')
-          $("#servicesListDiv").removeClass('hidden')
       else
+$(document).on 'click', ".closeButton", ->
+  $("#servicesListDiv").removeClass('animated bounceInRight')
+  $("#servicesListDiv").addClass('animated fadeOutRight')
