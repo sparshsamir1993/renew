@@ -220,6 +220,7 @@ $(document).on "click", "input#brandField", ->
 
 $(document).on "click", "#brandsList li.listView", ->
   $("input#brandField").val(this.innerHTML)
+  $("input#brandField")[0].name = this.value
   $.ajax "/models",
     type: 'GET'
     data: {
@@ -241,6 +242,8 @@ $(document).on "click", "#brandsList li.listView", ->
 
 $(document).on "click", "#modelsList li.listView", ->
   if(!$("#modelField").val() == "")
+    serviceId = $("#modelField").val()
+    console.log 'service is' + serviceId
   else
 
   $('#modelsList').addClass('hidden')
@@ -248,8 +251,10 @@ $(document).on "click", "#modelsList li.listView", ->
   $("#modelField")["0"].name = this.innerHTML
   $("#modelField")["0"].name = this.value
   $("#servicesList")["0"].value = this.value
-
+g_model_id = undefined
 $(document).on 'click', "#servicesList", ->
+  g_model_id = this.value
+  console.log 'gmodeid is ' + g_model_id
   $.ajax "/services",
     type :"GET"
     data: {
@@ -275,6 +280,7 @@ $(document).on 'click', "#servicesList", ->
             <tr>
               <td>" + x.name + "</td>
               <td>" + x.price + "</td>
+              <td><a class=\"addToCart\" data-service_id=" + x.id + " data-model_id=" + g_model_id + ">Add To Cart</a>
             </tr>
           ")
       else

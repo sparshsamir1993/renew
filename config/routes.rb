@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   devise_for :users
   get 'visitor/index'
 
@@ -17,5 +18,10 @@ Rails.application.routes.draw do
         resources :orders
         resources :services
     end
+  namespace :api do
+    namespace :v1 do
+      mount_devise_token_auth_for 'User', at: 'api/v1'
+    end
+  end
   root to: "visitor#index"
 end
