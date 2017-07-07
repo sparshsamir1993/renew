@@ -4,12 +4,14 @@ class ModelsController < ApplicationController
   # GET /models
   # GET /models.json
   def index
-    @models = Model.all
+    @brand = Brand.find(params[:brand_id])
+    @models = @brand.models.all
   end
 
   # GET /models/1
   # GET /models/1.json
   def show
+
   end
 
   # GET /models/new
@@ -69,6 +71,6 @@ class ModelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def model_params
-      params.require(:model).permit(:name)
+      params.require(:model).permit(:name, :brand_id)
     end
 end

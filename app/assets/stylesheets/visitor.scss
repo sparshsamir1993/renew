@@ -2924,7 +2924,7 @@
 	}
 
 		.goto-next:before {
-			background-image: url("images/arrow.svg");
+			background-image: url("arrow.svg");
 			background-position: center center;
 			background-repeat: no-repeat;
 			background-size: contain;
@@ -3427,7 +3427,7 @@
 	#banner {
 		background-attachment: fixed;
 		background-color: #272833;
-		background-image: url("../../images/stars.svg");
+		background-image: url("stars.svg");
 		background-position: center center;
 		background-size: cover;
 		box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.25);
@@ -4102,3 +4102,53 @@
         background: black;
         width: 100
     }*/
+
+
+header#header{
+  position: inherit;
+}
+
+
+div#brandsList {
+    background-color: dimgrey;
+    position: absolute;
+    left: 62%;
+    z-index: 4;
+    top: 43%;
+    width: 35%;
+}
+
+input#service_price{
+  color: black;
+}
+
+div#servicesListDiv {
+    height: 100%;
+    background: BLACK;
+    width: 40%;
+    float: right;
+    position: absolute;
+    top: 15%;
+    left: 60%;
+    z-index: 101;
+}
+.closeButton{
+  width: 100%;
+  background-color: white;
+  height: 40px;
+}
+
+.Xbutt{
+  color: black;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+div#modelsList {
+    background-color: dimgrey;
+    position: absolute;
+    left: 62%;
+    z-index: 4;
+    top: 43%;
+    width: 35%;
+}
