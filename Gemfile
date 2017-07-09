@@ -21,7 +21,7 @@ gem 'active_model_serializers', '0.10.0.rc4'
 gem 'devise'
 gem 'devise_token_auth' , '0.1.40'
 gem 'omniauth'
-gem 'omniauth-facebook', '1.4.0'
+gem 'omniauth-facebook'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'

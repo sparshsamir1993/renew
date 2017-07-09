@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
 
-  devise_for :users
+  devise_for :users,:controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   get 'visitor/index'
 
-  resources :users
+  
   resources :order_services
   resources :order_models
   resources :orders
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     end
   namespace :api do
     namespace :v1 do
-      mount_devise_token_auth_for 'User', at: 'api/v1'
+      mount_devise_token_auth_for 'User', at: 'auth',:controllers => { :omniauth_callbacks => 'omniauth' }, via: [:get, :post]
     end
   end
   root to: "visitor#index"

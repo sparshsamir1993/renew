@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+    protect_from_forgery with: :exception
+  	skip_before_filter :verify_authenticity_token
 
   # GET /users
   # GET /users.json
@@ -54,21 +55,12 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
+    current_user.destroy
+    redirect_to root_path
+ end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.fetch(:user, {})
-    end
+ private
+ def user_params
+    params.require(:user).permit(:email, :contact, :address, :restaurant_id, :_method, :utf8, :authenticity_token, :commit, :id)
+ end
 end
