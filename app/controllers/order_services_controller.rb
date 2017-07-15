@@ -24,16 +24,73 @@ class OrderServicesController < ApplicationController
   # POST /order_services
   # POST /order_services.json
   def create
-    @order_service = OrderService.new(order_service_params)
+    if session[:order_id].present?
+        order = OrderService.update_order(session[:order_id], params[:service_id], params[:model_id])
 
-    respond_to do |format|
-      if @order_service.save
-        format.html { redirect_to @order_service, notice: 'Order service was successfully created.' }
-        format.json { render :show, status: :created, location: @order_service }
-      else
-        format.html { render :new }
-        format.json { render json: @order_service.errors, status: :unprocessable_entity }
-      end
+        if order
+            respond_to do |format|
+		        if params.has_key?(:template)
+		            if params[:template] == 'false'
+		                format.html {render partial: 'visitor/table.html', locals: {users: @items}}
+                        format.json {render json: order}
+		            else
+		                format.html
+		            end
+		        else
+		            format.html
+		        end
+		        format.html
+		        format.json {render json: order}
+		    end
+        else
+            respond_to do |format|
+    		        if params.has_key?(:template)
+    		            if params[:template] == 'false'
+    		                format.html {render partial: 'visitor/table.html', locals: {users: @items}}
+                            format.json {render json: order}
+    		            else
+    		                format.html
+    		            end
+    		        else
+    		            format.html
+    		        end
+    		        format.html
+    		        format.json {render json: order}
+    		    end
+        end
+    else
+        order = OrderService.create_order(params[:service_id], params[:model_id], params[:user_id])
+        if order
+            session[:order_id] = order.id
+
+            respond_to do |format|
+    		        if params.has_key?(:template)
+    		            if params[:template] == 'false'
+    		                format.html {render partial: 'visitors/table.html', locals: {users: @items}}
+    		            else
+    		                format.html
+    		            end
+    		        else
+    		            format.html
+    		        end
+    		        format.html
+    		        format.json {render json: order}
+    		end
+        else
+            respond_to do |format|
+                if params.has_key?(:template)
+                    if params[:template] == 'false'
+                        format.html {render partial: 'visitors/table.html', locals: {users: @items}}
+                    else
+                        format.html
+                    end
+                else
+                    format.html
+                end
+                format.html
+                format.json {render json: order}
+            end
+        end
     end
   end
 
@@ -69,6 +126,6 @@ class OrderServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_service_params
-      params.require(:order_service).permit(:order_id, :service_id)
+      params.require(:order_service).permit(:order_id, :service_id, :order_model_id)
     end
 end

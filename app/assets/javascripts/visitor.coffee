@@ -254,6 +254,7 @@ $(document).on "click", "#modelsList li.listView", ->
 g_model_id = undefined
 $(document).on 'click', "#servicesList", ->
   g_model_id = this.value
+  user_id = $("#uId").attr("name")
   console.log 'gmodeid is ' + g_model_id
   $.ajax "/services",
     type :"GET"
@@ -280,7 +281,7 @@ $(document).on 'click', "#servicesList", ->
             <tr>
               <td>" + x.name + "</td>
               <td>" + x.price + "</td>
-              <td><a class=\"addToCart\" data-service_id=" + x.id + " data-model_id=" + g_model_id + ">Add To Cart</a>
+              <td><a class=\"addToCart\" data-service_id=" + x.id + " data-model_id=" + g_model_id + " data-user_id=" + user_id + ">Add To Cart</a></td>
             </tr>
           ")
       else
