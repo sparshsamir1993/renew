@@ -39,7 +39,7 @@ gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) support
 gem "twitter-bootstrap-rails"
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-    gem 'byebug', platform: :mri
+    gem 'byebug'
     gem "better_errors"
     gem 'rspec-rails', '3.1.0'
     gem 'factory_girl_rails'

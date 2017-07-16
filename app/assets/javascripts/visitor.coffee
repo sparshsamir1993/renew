@@ -275,15 +275,51 @@ $(document).on 'click', "#servicesList", ->
       if($("#servicesListDiv table tbody").children().length > 0)
         $("#servBody").html("")
       if($("#servicesListDiv table tbody").children().length <1)
-        data.forEach (x) ->
-          console.log(x.name)
-          $("#servBody").append("
-            <tr>
-              <td>" + x.name + "</td>
-              <td>" + x.price + "</td>
-              <td><a class=\"addToCart\" data-service_id=" + x.id + " data-model_id=" + g_model_id + " data-user_id=" + user_id + ">Add To Cart</a></td>
-            </tr>
-          ")
+        order_id = $("#servicesList").attr("data-orderid")
+        if order_id != undefined && order_id != ""
+            $.ajax "/order_services?order_id="+order_id,
+                type: "GET"
+                dataType: 'json'
+
+                success: (data2, jqxhr, textStatus) ->
+                    console.log(data2)
+                    count = 0
+                    data.forEach (x) ->
+                        while count <= data2.length
+                             if data2[count] && data2[count].service_id == x.id
+                                  console.log(x.name)
+                                  $("#servBody").append("
+                                    <tr>
+                                      <td>" + x.name + "</td>
+                                      <td>" + x.price + "</td>
+                                      <td><a class=\"deleteFromCart\" data-service_id=" + x.id + " data-model_id=" + g_model_id + " data-user_id=" + user_id + ">Delete</a></td>
+                                    </tr>
+                                  ")
+                                  count++
+                                  return
+                             else
+                                 count++
+                            console.log(x.name)
+                            $("#servBody").append("
+                              <tr>
+                                <td>" + x.name + "</td>
+                                <td>" + x.price + "</td>
+                                <td><a class=\"addToCart\" data-service_id=" + x.id + " data-model_id=" + g_model_id + " data-user_id=" + user_id + ">Add To Cart</a></td>
+                              </tr>
+                            ")
+
+
+        else
+            data.forEach (x) ->
+              console.log(x.name)
+              $("#servBody").append("
+                <tr>
+                  <td>" + x.name + "</td>
+                  <td>" + x.price + "</td>
+                  <td><a class=\"addToCart\" data-service_id=" + x.id + " data-model_id=" + g_model_id + " data-user_id=" + user_id + ">Add To Cart</a></td>
+                </tr>
+              ")
+
       else
 $(document).on 'click', ".closeButton", ->
   $("#servicesListDiv").removeClass('animated bounceInRight')

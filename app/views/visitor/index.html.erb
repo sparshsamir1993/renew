@@ -31,7 +31,7 @@
 								</ul>
 							</div>
 
-							<a id="servicesList" class="button special mt3">See Prices</a>
+							<a id="servicesList" data-orderId='<%= session[:order_id] %>' class="button special mt3">See Prices</a>
 						</header>
 
 					</div>
@@ -42,7 +42,7 @@
 					</div>
 					<a href="#one" class="goto-next scrolly">Next</a>
 					<div id="servicesListDiv" class="hidden">
-						<%= render partial: "table"  %>
+						<%= render partial: "table", locals:{count:@count}  %>
 
 					</div>
 				</div>

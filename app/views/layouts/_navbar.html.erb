@@ -27,6 +27,9 @@
             <%= link_to "Logout", destroy_user_session_path, method: :delete %>
           </li>
           <div id="uId" name='<%= current_user.id %>'></div>
+          <% if session[:order_id] %>
+            <div id="navOrdId" name='<%= session[:order_id] %>'></div>
+          <% end %>
       <% else %>
             <li><a href="#" class="button special">Sign In</a></li>
             <li>

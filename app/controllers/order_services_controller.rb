@@ -4,7 +4,7 @@ class OrderServicesController < ApplicationController
   # GET /order_services
   # GET /order_services.json
   def index
-    @order_services = OrderService.all
+    @order_services = Order.find(params[:order_id]).order_services
   end
 
   # GET /order_services/1
@@ -28,11 +28,12 @@ class OrderServicesController < ApplicationController
         order = OrderService.update_order(session[:order_id], params[:service_id], params[:model_id])
 
         if order
+            @count = order.order_services.count
             respond_to do |format|
 		        if params.has_key?(:template)
 		            if params[:template] == 'false'
-		                format.html {render partial: 'visitor/table.html', locals: {users: @items}}
-                        format.json {render json: order}
+		                format.html {render partial: 'visitor/table.html', locals:{count:@count}}
+                        format.json {render json: order.order_services}
 		            else
 		                format.html
 		            end
@@ -40,14 +41,15 @@ class OrderServicesController < ApplicationController
 		            format.html
 		        end
 		        format.html
-		        format.json {render json: order}
+		        format.json {render json: order.order_services}
 		    end
         else
+            @count = order.order_services.count
             respond_to do |format|
     		        if params.has_key?(:template)
     		            if params[:template] == 'false'
-    		                format.html {render partial: 'visitor/table.html', locals: {users: @items}}
-                            format.json {render json: order}
+    		                format.html {render partial: 'visitor/table.html',locals:{count:@count}}
+                            format.json {render json: order.order_services}
     		            else
     		                format.html
     		            end
@@ -55,40 +57,46 @@ class OrderServicesController < ApplicationController
     		            format.html
     		        end
     		        format.html
-    		        format.json {render json: order}
+    		        format.json {render json: order.order_services}
     		    end
         end
     else
         order = OrderService.create_order(params[:service_id], params[:model_id], params[:user_id])
         if order
             session[:order_id] = order.id
-
+            @count = order.order_services.count
             respond_to do |format|
     		        if params.has_key?(:template)
     		            if params[:template] == 'false'
-    		                format.html {render partial: 'visitors/table.html', locals: {users: @items}}
+    		                format.html {render partial: 'visitor/table.html', locals:{count:@count}}
+                            format.json {render json: order.order_services}
     		            else
     		                format.html
+                            format.json {render json: order.order_services}
     		            end
     		        else
     		            format.html
+                        format.json {render json: order.order_services}
     		        end
     		        format.html
-    		        format.json {render json: order}
+    		        format.json {render json: order.order_services}
     		end
         else
+            @count = order.order_services.count
             respond_to do |format|
                 if params.has_key?(:template)
                     if params[:template] == 'false'
-                        format.html {render partial: 'visitors/table.html', locals: {users: @items}}
+                        format.html {render partial: 'visitor/table.html', locals:{count:@count}}
+                        format.json {render json: order.order_services}
                     else
                         format.html
+                        format.json {render json: order.order_services}
                     end
                 else
                     format.html
                 end
                 format.html
-                format.json {render json: order}
+                format.json {render json: order.order_services}
             end
         end
     end
@@ -111,10 +119,10 @@ class OrderServicesController < ApplicationController
   # DELETE /order_services/1
   # DELETE /order_services/1.json
   def destroy
-    @order_service.destroy
+    order = OrderService.destroy_service(session[:order_id], params[:model_id], params[:service_id])
     respond_to do |format|
       format.html { redirect_to order_services_url, notice: 'Order service was successfully destroyed.' }
-      format.json { head :no_content }
+      format.json { render  json: Order.find(session[:order_id]).order_services }
     end
   end
 
